@@ -47,6 +47,7 @@ module tt_um_dcb277_ALU (
     wire [3:0] ALU_out;
     wire [3:0] A, B, adder_B;
     wire C_in;
+    wire neg_B;
     wire [2:0] func;
     wire [3:0] add_out, and_out, or_out, xor_out;
     wire Ze,N,C,V; //ALU flags
@@ -72,8 +73,6 @@ module tt_um_dcb277_ALU (
     assign or_out = A | B;
     assign xor_out = A ^ B;
 
-
-
     parameter f_add = 3'b000;
     parameter f_sub = 3'b001;
     parameter f_and = 3'b010;
@@ -81,32 +80,17 @@ module tt_um_dcb277_ALU (
     parameter f_xor = 3'b100;
     parameter f_pass = 3'b101;
 
-    always @(func)
-    begin
-      case(func)
-        f_add:  begin
-          ALU_out = add_out; adder_B = B; C_in = 0;
-        end
-        f_sub: begin
-           ALU_out = add_out; adder_B = ~B; C_in = 1;
-        end
-        f_and: begin
-           ALU_out = and_out; adder_B = B; C_in = 0;
-        end
-        f_or: begin 
-            ALU_out = or_out; adder_B = B; C_in = 0;
-        end
-        f_xor: begin
-           ALU_out = xor_out; adder_B = B; C_in = 0;
-        end
-        f_pass: begin 
-          ALU_out = A; adder_B = B; C_in = 0;
-        end
-        default: begin 
-          ALU_out = A; adder_B = B; C_in = 0;
-        end
-      endcase
-    end
+    assign neg_B = (func[0] == 1) ? 1'b1 : 1'b0;
+
+    assign C_in    =  ((neg_B) ? 1'b1 : 1'b0);
+    assign adder_B =  ((neg_B) ? ~B : B);
+
+    assign ALU_out =  (func == f_add) ? add_out:
+                      (func == f_sub) ? add_out:
+                      (func == f_and) ? and_out:
+                      (func == f_or)  ? or_out:
+                      (func == f_xor) ? xor_out:
+                                        A;
 
     adder adder(.A(A), .B(adder_B), .C_in(C_in), .Y(add_out), .V(V), .C_out(C));
 
