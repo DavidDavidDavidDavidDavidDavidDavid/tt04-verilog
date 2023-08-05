@@ -40,7 +40,7 @@ module tt_um_dcb277_ALU (
 
 
   // use bidirectionals
-    assign uio_oe = 8'b00000000;
+    assign uio_oe = 8'b11110000;
     wire reset = ! rst_n;
 
     wire [6:0] led_out;
@@ -54,6 +54,11 @@ module tt_um_dcb277_ALU (
     assign A = ui_in[3:0];
     assign B = ui_in[7:4];
     assign func = uio_in[2:0];
+
+    assign uio_out[7] = Ze;
+    assign uio_out[6] = N;
+    assign uio_out[5] = C;
+    assign uio_out[4] = V;
 
     assign Ze = ~(ALU_out[0] | ALU_out[1] | ALU_out[2] | ALU_out[3]);
     assign N = ALU_out[3];
