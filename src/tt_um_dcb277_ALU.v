@@ -60,6 +60,7 @@ module tt_um_dcb277_ALU (
     assign uio_out[6] = N;
     assign uio_out[5] = C;
     assign uio_out[4] = V;
+    assign uio_out[3:0] = 4'b0000;
 
     assign Ze = ~(ALU_out[0] | ALU_out[1] | ALU_out[2] | ALU_out[3]);
     assign N = ALU_out[3];
