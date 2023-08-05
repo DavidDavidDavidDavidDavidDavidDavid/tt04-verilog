@@ -1,6 +1,33 @@
 `default_nettype none
 
-module tt_um_dcb277_ALU #( parameter MAX_COUNT = 24'd10_000_000 ) (
+module adder (
+    input   wire [3:0]  A,
+    input   wire [3:0]  B,
+    input   wire        C_in,
+    output  wire [3:0]  Y,
+    output  wire        C_out,
+    output  wire        V
+);
+    // Adder unit
+    wire C1,C2,C3;
+
+    assign Y[0] = ((A[0] ^ B[0]) ^ C_in);
+    assign C1 = (((A[0] ^ B[0]) & C_in) | (A[0] & B[0]));
+
+    assign Y[1] = ((A[1] ^ B[1]) ^ C1);
+    assign C2 = (((A[1] ^ B[1]) & C1) | (A[1] & B[1]));
+
+    assign Y[2] = ((A[2] ^ B[2]) ^ C2);
+    assign C3 = (((A[2] ^ B[2]) & C2) | (A[2] & B[2]));
+
+    assign Y[3] = ((A[3] ^ B[3]) ^ C3);
+    assign C_out = (((A[3] ^ B[3]) & C3) | (A[3] & B[3]));
+
+    assign V = (C3 ^ C_out);
+
+endmodule
+
+module tt_um_dcb277_ALU (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
     output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7 segment display
     input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
@@ -19,12 +46,10 @@ module tt_um_dcb277_ALU #( parameter MAX_COUNT = 24'd10_000_000 ) (
     wire [6:0] led_out;
     wire [3:0] ALU_out;
     wire [3:0] A, B, adder_B;
-    wire C_in, C1, C2, C3;
+    wire C_in;
     wire [2:0] func;
     wire [3:0] add_out, and_out, or_out, xor_out;
-    wire Ze,N,C4,V; 
-
-
+    wire Ze,N,C,V; //ALU flags
 
     assign A = ui_in[3:0];
     assign B = ui_in[7:4];
@@ -42,17 +67,7 @@ module tt_um_dcb277_ALU #( parameter MAX_COUNT = 24'd10_000_000 ) (
     assign or_out = A | B;
     assign xor_out = A ^ B;
 
-    // Adder unit
-    assign add_out[0] = ((A[0] ^ adder_B[0]) ^ C_in);
-    assign C1 = (((A[0] ^ adder_B[0]) & C_in) | (A[0] & B[0]));
-    assign add_out[1] = ((A[1] ^ adder_B[1]) ^ C1);
-    assign C2 = (((A[1] ^ adder_B[1]) & C1) | (A[1] & B[1]));
-    assign add_out[2] = ((A[2] ^ adder_B[2]) ^ C2);
-    assign C3 = (((A[2] ^ adder_B[2]) & C_in) | (A[2] & B[2]));
-    assign add_out[3] = ((A[3] ^ adder_B[3]) ^ C3);
-    assign C4 = (((A[3] ^ adder_B[3]) & C_in) | (A[3] & B[3]));
 
-    assign V = (C3 ^ C4);
 
     parameter f_add = 3'b000;
     parameter f_sub = 3'b001;
@@ -88,7 +103,7 @@ module tt_um_dcb277_ALU #( parameter MAX_COUNT = 24'd10_000_000 ) (
       endcase
     end
 
-
+    adder adder(.A(A), .B(adder_B), .C_in(C_in), .Y(add_out), .V(V), .C_out(C));
 
     // instantiate segment display
     seg7 seg7(.counter(ALU_out), .segments(led_out));
