@@ -1,4 +1,5 @@
 `default_nettype none
+`include "decoder.v"
 
 module adder (
     input   wire [3:0]  A,
@@ -35,14 +36,34 @@ module shifter (
 
   wire [3:0] SLL, SRL, SRA;
 
-  assign SLL = A<<1'b1;
-  assign SRL = A>>1'b1;
-  assign SRA = A>>>1'b1;
+  assign SLL = A<<1;
+  assign SRL = A>>1;
+  assign SRA = A>>>1;
 
-  assign Y =  (S == 0'b00) ?  SLL:
-              (S == 0'b01) ?  SRL:
+  assign Y =  (S == 2'b00) ?  SLL:
+              (S == 2'b01) ?  SRL:
                               SRA;
 
+endmodule
+
+module logical (
+    input wire [3:0] A,
+    input wire [3:0] B,
+    input wire [1:0] S,
+    output wire [3:0] Y
+);
+
+    wire [3:0] l_and, l_or, l_xor;
+
+    // Logical unit
+    assign l_and = A & B;
+    assign l_or = A | B;
+    assign l_xor = A ^ B;
+
+    assign Y =  (S == 2'b00) ?  l_and   :
+                (S == 2'b01) ?  l_or    :
+                                l_xor;
+                            
 endmodule
 
 module tt_um_dcb277_ALU (
@@ -67,7 +88,7 @@ module tt_um_dcb277_ALU (
     wire C_in;
     wire neg_B;
     wire [3:0] func;
-    wire [3:0] add_out, and_out, or_out, xor_out, shift_out;
+    wire [3:0] add_out, logic_out, shift_out;
     wire Ze,N,C,V; //ALU flags
 
     assign A = ui_in[3:0];
@@ -86,13 +107,7 @@ module tt_um_dcb277_ALU (
     assign uo_out[6:0] = led_out;
     assign uo_out[7] = 1'b0;
     
-
-    // Logical unit
-    assign and_out = A & B;
-    assign or_out = A | B;
-    assign xor_out = A ^ B;
-
-
+  
     parameter f_add = 4'b0000;
     parameter f_sub = 4'b0001;
     parameter f_and = 4'b0100;
@@ -109,13 +124,15 @@ module tt_um_dcb277_ALU (
     assign adder_B =  ((neg_B) ? ~B : B);
     assign ALU_out =  (func == f_add) ? add_out:
                       (func == f_sub) ? add_out:
-                      (func == f_and) ? and_out:
-                      (func == f_or)  ? or_out:
-                      (func == f_xor) ? xor_out:
+                      (func == f_and) ? logic_out:
+                      (func == f_or)  ? logic_out:
+                      (func == f_xor) ? logic_out:
                       (func == f_sll) ? shift_out:
                       (func == f_srl) ? shift_out:
                       (func == f_sra) ? shift_out:
                                         A;
+
+    logical logical(.A(A), .B(B), .S(func[1:0]), .Y(logic_out));
 
     shifter shifter(.A(A), .S(func[1:0]), .Y(shift_out));
 
