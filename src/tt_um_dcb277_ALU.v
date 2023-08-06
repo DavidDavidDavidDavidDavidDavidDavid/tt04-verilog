@@ -27,6 +27,24 @@ module adder (
 
 endmodule
 
+module shifter (
+    input wire [3:0] A,
+    input wire [1:0] S,
+    output wire [3:0] Y
+);
+
+  wire [3:0] SLL, SRL, SRA;
+
+  assign SLL = A<<1'b1;
+  assign SRL = A>>1'b1;
+  assign SRA = A>>>1'b1;
+
+  assign Y =  (S == 0'b00) ?  SLL:
+              (S == 0'b01) ?  SRL:
+                              SRA;
+
+endmodule
+
 module tt_um_dcb277_ALU (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
     output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7 segment display
@@ -48,8 +66,8 @@ module tt_um_dcb277_ALU (
     wire [3:0] A, B, adder_B;
     wire C_in;
     wire neg_B;
-    wire [2:0] func;
-    wire [3:0] add_out, and_out, or_out, xor_out;
+    wire [3:0] func;
+    wire [3:0] add_out, and_out, or_out, xor_out, shift_out;
     wire Ze,N,C,V; //ALU flags
 
     assign A = ui_in[3:0];
@@ -74,24 +92,32 @@ module tt_um_dcb277_ALU (
     assign or_out = A | B;
     assign xor_out = A ^ B;
 
-    parameter f_add = 3'b000;
-    parameter f_sub = 3'b001;
-    parameter f_and = 3'b010;
-    parameter f_or = 3'b011;
-    parameter f_xor = 3'b100;
-    parameter f_pass = 3'b101;
+
+    parameter f_add = 4'b0000;
+    parameter f_sub = 4'b0001;
+    parameter f_and = 4'b0100;
+    parameter f_or =  4'b0101;
+    parameter f_xor = 4'b0110;
+    parameter f_sll = 4'b1000;
+    parameter f_srl = 4'b1001;
+    parameter f_sra = 4'b1010;
+    parameter f_pass = 4'b1111;
 
     assign neg_B = (func[0] == 1) ? 1'b1 : 1'b0;
 
     assign C_in    =  ((neg_B) ? 1'b1 : 1'b0);
     assign adder_B =  ((neg_B) ? ~B : B);
-
     assign ALU_out =  (func == f_add) ? add_out:
                       (func == f_sub) ? add_out:
                       (func == f_and) ? and_out:
                       (func == f_or)  ? or_out:
                       (func == f_xor) ? xor_out:
+                      (func == f_sll) ? shift_out:
+                      (func == f_srl) ? shift_out:
+                      (func == f_sra) ? shift_out:
                                         A;
+
+    shifter shifter(.A(A), .S(func[1:0]), .Y(shift_out));
 
     adder adder(.A(A), .B(adder_B), .C_in(C_in), .Y(add_out), .V(V), .C_out(C));
 
