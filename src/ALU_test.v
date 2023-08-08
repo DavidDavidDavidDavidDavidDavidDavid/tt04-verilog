@@ -9,24 +9,31 @@ wire  rst_n;
 wire  ena;
 wire  [7:0] ui_in;
 wire  [7:0] uio_in;
-reg [3:0] A,B,func; 
+reg signed [3:0] A,B;
+reg [3:0] func; 
+
 
 wire [6:0] segments = uo_out[6:0];
 wire [7:0] uo_out;
 wire [7:0] uio_out;
 wire [7:0] uio_oe;
 
-wire [3:0] Y;
+wire signed [3:0] Y;
+wire Ze,N,C,V;
 
 assign ui_in[3:0] = A;
 assign ui_in[7:4] = B;
 assign uio_in[3:0] = func;
+assign Ze = uio_out[7];
+assign N = uio_out[6];
+assign C = uio_out[5];
+assign V = uio_out[4];
 
 // duration for each bit = 20 * timescale = 20 * 1 ns  = 20ns
 localparam period = 20;  
 
 tt_um_dcb277_ALU UUT (.clk(clk), .rst_n(rst_n), .ena(ena), .ui_in(ui_in), .uio_in(uio_in), .uo_out(uo_out), .uio_out(uio_out), .uio_oe(uio_oe));
-seg7_enc encoder (.segments(segments), .digit(Y));
+seg7_enc encoder (.segments(segments), .digit(Y), .N(N));
 
 
 
@@ -59,45 +66,31 @@ end
 always @(posedge clk)
 begin
     // values for a and b
-    A = 2;
-    B = -2;
+    A = 7;
+    B = 4;
     func = f_add;
 
-    #period
-    $display(Y);
-    $display("%B", uo_out);
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
 
     // display message if output not matched
-    if(Y != 4)  
-        $display("test failed for input combination 00");
-    else $display("correct value");
+    if  ((Y != A+B) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 0) ||
+         (V != 1)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A+B);
+        $display("correct flags: ", Ze,N,C,V);
+        $finish;
+        end
+    else 
+        $display("correct");
 
-    A = 2;
-    B = 4;
-    func = f_sub;
-
-    #period
-    $display(Y);
-    // $display("%B", uo_out);
-
-    // display message if output not matched
-    if(Y != 0)  
-        $display("test failed for input combination 00");
-    else $display("correct value");
-
-    A = 4'b0110;
-    B = 4'b0110;
-    func = f_and;
-
-    #period
-    $display("%B", Y);
-    // $display("%B", uo_out);
-
-    // display message if output not matched
-    if(Y != 0)  
-        $display("test failed for input combination 00");
-    else $display("correct value");
-
-    $stop;   // end of simulation
+    $finish;   // end of simulation
 end
 endmodule
