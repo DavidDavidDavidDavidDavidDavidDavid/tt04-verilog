@@ -146,7 +146,7 @@ module tt_um_dcb277_ALU (
     assign uio_out[4] = V;
     assign uio_out[3:0] = 4'b0000;
 
-    assign Ze = ~(ALU_out[0] | ALU_out[1] | ALU_out[2] | ALU_out[3]);
+    assign Ze = (ALU_out == 4'b0000) ? 1'b1:1'b0;
     assign N = ALU_out[3];
     
     assign uo_out[6:0] = led_out;
@@ -163,9 +163,9 @@ module tt_um_dcb277_ALU (
     parameter f_sra = 4'b1010;
     parameter f_pass = 4'b1111;
 
-    assign neg_B = (func[0] == 1) ? 1'b1 : 1'b0;
+    assign neg_B = func[0];
 
-    assign C_in    =  (neg_B) ? 1'b1 : 1'b0;
+    assign C_in    =  neg_B;
     assign adder_B =  (neg_B) ? ~B : B;
     assign C       =  (func[3] == 1'b0) ? adder_C : shifter_C;
 
