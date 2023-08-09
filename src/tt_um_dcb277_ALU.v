@@ -13,7 +13,7 @@
 */
 
 module seg7 (
-    input wire [3:0] counter,
+    input wire signed [3:0] counter,
     output reg [6:0] segments
 );
 
@@ -44,10 +44,10 @@ module seg7 (
 endmodule
 
 module adder (
-    input   wire [3:0]  A,
-    input   wire [3:0]  B,
+    input   wire signed [3:0]  A,
+    input   wire signed [3:0]  B,
     input   wire        C_in,
-    output  wire [3:0]  Y,
+    output  wire signed [3:0]  Y,
     output  wire        C_out,
     output  wire        V
 );
@@ -71,28 +71,31 @@ module adder (
 endmodule
 
 module shifter (
-    input wire [3:0] A,
+    input wire signed [3:0] A,
     input wire [1:0] S,
-    output wire [3:0] Y
+    output wire signed [3:0] Y,
+    output wire C
 );
 
-  wire [3:0] SLL, SRL, SRA;
+    wire signed [3:0] SLL, SRL, SRA;
 
-  assign SLL = A<<1;
-  assign SRL = A>>1;
-  assign SRA = A>>>1;
+    assign SLL = A<<1;
+    assign SRL = A>>1;
+    assign SRA = A>>>1;
 
-  assign Y =  (S == 2'b00) ?  SLL:
-              (S == 2'b01) ?  SRL:
-                              SRA;
+
+    assign {C,Y} =  (S == 2'b00) ?  {A[3],SLL}:
+                    (S == 2'b01) ?  {A[0],SRL}:
+                                   {A[0],SRA};
+
 
 endmodule
 
 module logical (
-    input wire [3:0] A,
-    input wire [3:0] B,
+    input wire signed [3:0] A,
+    input wire signed [3:0] B,
     input wire [1:0] S,
-    output wire [3:0] Y
+    output wire signed [3:0] Y
 );
 
     wire [3:0] l_and, l_or, l_xor;
@@ -125,12 +128,12 @@ module tt_um_dcb277_ALU (
     wire reset = ! rst_n;
 
     wire [6:0] led_out;
-    wire [3:0] ALU_out;
-    wire [3:0] A, B, adder_B;
-    wire C_in;
-    wire neg_B;
+    wire signed [3:0] ALU_out;
+    wire signed [3:0] A, B, adder_B;
+    wire C_in, adder_C, shifter_C;
+    wire signed neg_B;
     wire [3:0] func;
-    wire [3:0] add_out, logic_out, shift_out;
+    wire signed [3:0] add_out, logic_out, shift_out;
     wire Ze,N,C,V; //ALU flags
 
     assign A = ui_in[3:0];
@@ -162,23 +165,20 @@ module tt_um_dcb277_ALU (
 
     assign neg_B = (func[0] == 1) ? 1'b1 : 1'b0;
 
-    assign C_in    =  ((neg_B) ? 1'b1 : 1'b0);
-    assign adder_B =  ((neg_B) ? ~B : B);
-    assign ALU_out =  (func == f_add) ? add_out:
-                      (func == f_sub) ? add_out:
-                      (func == f_and) ? logic_out:
-                      (func == f_or)  ? logic_out:
-                      (func == f_xor) ? logic_out:
-                      (func == f_sll) ? shift_out:
-                      (func == f_srl) ? shift_out:
-                      (func == f_sra) ? shift_out:
-                                        A;
+    assign C_in    =  (neg_B) ? 1'b1 : 1'b0;
+    assign adder_B =  (neg_B) ? ~B : B;
+    assign C       =  (func[3] == 1'b0) ? adder_C : shifter_C;
+
+    assign ALU_out =  (func[3:2] == 2'b00) ?   add_out:
+                      (func[3:2] == 2'b01) ?   logic_out:
+                      (func[3:2] == 2'b10) ?   shift_out:
+                                            A;
 
     logical logical(.A(A), .B(B), .S(func[1:0]), .Y(logic_out));
 
-    shifter shifter(.A(A), .S(func[1:0]), .Y(shift_out));
+    shifter shifter(.A(A), .S(func[1:0]), .Y(shift_out), .C(shifter_C));
 
-    adder adder(.A(A), .B(adder_B), .C_in(C_in), .Y(add_out), .V(V), .C_out(C));
+    adder adder(.A(A), .B(adder_B), .C_in(C_in), .Y(add_out), .V(V), .C_out(adder_C));
 
     // instantiate segment display
     seg7 seg7(.counter(ALU_out), .segments(led_out));

@@ -66,8 +66,8 @@ end
 always @(posedge clk)
 begin
     // values for a and b
-    A = 7;
-    B = 4;
+    A = 4'b0111;
+    B = 4'b0100;
     func = f_add;
 
     #period // Give delay for register updates
@@ -77,7 +77,7 @@ begin
     $display(Ze, N, C, V); // ALU flags
 
     // display message if output not matched
-    if  ((Y != A+B) ||
+    if  ((Y != 4'b1011) ||
          (Ze != 0) ||
          (N != 1) ||
          (C != 0) ||
@@ -85,12 +85,1626 @@ begin
         begin
         $display("test failed");
         $display("correct value is: ", A+B);
-        $display("correct flags: ", Ze,N,C,V);
+        
         $finish;
         end
     else 
         $display("correct");
+    
+////////////////////////////////////////////////////
+    // values for a and b
+        A = 4'b0111;
+        B = 4'b0100;
+        func = f_add;
+    
+        #period // Give delay for register updates
+        $display("Segment output: %B", uo_out); // The 7-seg output
+        $display(Y); // The re-encoded 7-seg value
+        $display("ZNCV"); // ALU flag key
+        $display(Ze, N, C, V); // ALU flags
+    
+        // display message if output not matched
+        if  ((Y != 4'b1011) ||
+             (Ze != 0) ||
+             (N != 1) ||
+             (C != 0) ||
+             (V != 1)) // If the output is incorrect:
+            begin
+            $display("test failed");
+            $display("correct value is: ", A+B);
+            
+            $finish;
+            end
+        else 
+            $display("correct");
+        
+    ////////////////////////////////////////////////////
+                // values for a and b
+    A = 4'b1111;
+    B = 4'b0000;
+    func = f_add;
 
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 0) ||
+         (V != 0)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A+B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+            // values for a and b
+    A = 4'b0001;
+    B = 4'b1111;
+    func = f_add;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 0)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A+B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+            // values for a and b
+    A = 4'b0101;
+    B = 4'b1010;
+    func = f_add;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 0) ||
+         (V != 0)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A+B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+            // values for a and b
+    A = 4'b0111;
+    B = 4'b0100;
+    func = f_add;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1011) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 0) ||
+         (V != 1)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A+B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+            // values for a and b
+    A = 4'b0000;
+    B = 4'b0000;
+    func = f_add;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 0) ||
+         (V != 0)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A+B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+            // values for a and b
+    A = 4'b1111;
+    B = 4'b1111;
+    func = f_add;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1110) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1) ||
+         (V != 0)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A+B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+            // Subtraction Tests
+////////////////////////////////////////////////////
+
+             // values for a and b
+        A = 4'b1111;
+        B = 4'b1111;
+        func = f_sub;
+    
+        #period // Give delay for register updates
+        $display("Segment output: %B", uo_out); // The 7-seg output
+        $display(Y); // The re-encoded 7-seg value
+        $display("ZNCV"); // ALU flag key
+        $display(Ze, N, C, V); // ALU flags
+    
+        // display message if output not matched
+        if  ((Y != 4'b0000) || 
+             (Ze != 1) ||
+             (N != 0) ||
+             (C != 1) ||
+             (V != 0)) // If the output is incorrect:
+            begin
+            $display("test failed");
+            $display("correct value is: ", A-B);
+            
+            $finish;
+            end
+        else 
+            $display("correct");
+        
+    ////////////////////////////////////////////////////
+                     // values for a and b
+    A = 4'b0000;
+    B = 4'b0000;
+    func = f_sub;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 0)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A-B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                 // values for a and b
+    A = 4'b1010;
+    B = 4'b0101;
+    func = f_sub;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0101) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 1)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A-B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////    
+                 // values for a and b
+    A = 4'b0000;
+    B = 4'b1111;
+    func = f_sub;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0001) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 0) ||
+         (V != 0)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A-B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                 // values for a and b
+    A = 4'b1000;
+    B = 4'b1000;
+    func = f_sub;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 0)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A-B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                 // values for a and b
+    A = 4'b1111;
+    B = 4'b0000;
+    func = f_sub;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1) ||
+         (V != 0)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A-B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+        // AND tests
+///////////////////////////////////////////////////
+                // values for a and b
+    A = 4'b1111;
+    B = 4'b0000;
+    func = f_and;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A&B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                        // values for a and b
+    A = 4'b1111;
+    B = 4'b1111;
+    func = f_and;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A&B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                        // values for a and b
+    A = 4'b0000;
+    B = 4'b0000;
+    func = f_and;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A&B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                        // values for a and b
+    A = 4'b0101;
+    B = 4'b0101;
+    func = f_and;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0101) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A&B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                        // values for a and b
+    A = 4'b0101;
+    B = 4'b1010;
+    func = f_and;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A&B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                        // values for a and b
+    A = 4'b1001;
+    B = 4'b1011;
+    func = f_and;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1001) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A&B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                        // values for a and b
+    A = 4'b1111;
+    B = 4'b0100;
+    func = f_and;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0100) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A&B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                        // values for a and b
+    A = 4'b1000;
+    B = 4'b0001;
+    func = f_and;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A&B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+        // OR Tests
+////////////////////////////////////////////////////
+                                // values for a and b
+    A = 4'b1000;
+    B = 4'b0001;
+    func = f_or;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1001) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A|B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                        // values for a and b
+    A = 4'b1111;
+    B = 4'b1111;
+    func = f_or;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A|B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                        // values for a and b
+    A = 4'b0000;
+    B = 4'b0000;
+    func = f_or;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A|B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                        // values for a and b
+    A = 4'b0000;
+    B = 4'b1111;
+    func = f_or;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A|B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                        // values for a and b
+    A = 4'b1010;
+    B = 4'b0101;
+    func = f_or;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A|B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                        // values for a and b
+    A = 4'b0101;
+    B = 4'b1010;
+    func = f_or;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A|B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+            // XOR tests
+ ////////////////////////////////////////////////////
+                                                // values for a and b
+    A = 4'b0101;
+    B = 4'b1010;
+    func = f_xor;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A^B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                                        // values for a and b
+    A = 4'b1111;
+    B = 4'b1111;
+    func = f_xor;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A^B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                                        // values for a and b
+    A = 4'b1010;
+    B = 4'b0101;
+    func = f_xor;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A^B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                                        // values for a and b
+    A = 4'b0000;
+    B = 4'b1111;
+    func = f_xor;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A^B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                                        // values for a and b
+    A = 4'b1111;
+    B = 4'b0100;
+    func = f_xor;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1011) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A^B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                                        // values for a and b
+    A = 4'b0001;
+    B = 4'b1111;
+    func = f_xor;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1110) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A^B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                                        // values for a and b
+    A = 4'b0000;
+    B = 4'b0100;
+    func = f_xor;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0100) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A^B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                                        // values for a and b
+    A = 4'b1110;
+    B = 4'b1010;
+    func = f_xor;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0100) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A^B);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+        // SLL
+////////////////////////////////////////////////////
+          // values for a and b
+    A = 4'b1110;
+    B = 4'bxxxx;
+    func = f_sll;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1100) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A<<1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+          // values for a and b
+    A = 4'b1111;
+    B = 4'bxxxx;
+    func = f_sll;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1110) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A<<1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+          // values for a and b
+    A = 4'b0000;
+    B = 4'bxxxx;
+    func = f_sll;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 0) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A<<1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+          // values for a and b
+    A = 4'b0001;
+    B = 4'bxxxx;
+    func = f_sll;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0010) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 0) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A<<1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+          // values for a and b
+    A = 4'b1000;
+    B = 4'bxxxx;
+    func = f_sll;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A<<1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+        // SRL Tests
+////////////////////////////////////////////////////
+                  // values for a and b
+    A = 4'b1000;
+    B = 4'bxxxx;
+    func = f_srl;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0100) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 0) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b1111;
+    B = 4'bxxxx;
+    func = f_srl;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0111) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b0000;
+    B = 4'bxxxx;
+    func = f_srl;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 0) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b1010;
+    B = 4'bxxxx;
+    func = f_srl;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0101) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 0) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b0001;
+    B = 4'bxxxx;
+    func = f_srl;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b1001;
+    B = 4'bxxxx;
+    func = f_srl;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0100) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b1101;
+    B = 4'bxxxx;
+    func = f_srl;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0110) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+        // SRA Tests
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b1000;
+    B = 4'bxxxx;
+    func = f_sra;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1100) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 0) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b1111;
+    B = 4'bxxxx;
+    func = f_sra;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b0000;
+    B = 4'bxxxx;
+    func = f_sra;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 0) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b1010;
+    B = 4'bxxxx;
+    func = f_sra;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1101) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 0) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b0001;
+    B = 4'bxxxx;
+    func = f_sra;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b1001;
+    B = 4'bxxxx;
+    func = f_sra;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1100) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                          // values for a and b
+    A = 4'b1101;
+    B = 4'bxxxx;
+    func = f_sra;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1110) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A>>>1);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+        // Pass thru tests
+////////////////////////////////////////////////////
+                                  // values for a and b
+    A = 4'b1101;
+    B = 4'bxxxx;
+    func = f_pass;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1101) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                          // values for a and b
+    A = 4'b1111;
+    B = 4'bxxxx;
+    func = f_pass;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1111) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                          // values for a and b
+    A = 4'b0000;
+    B = 4'bxxxx;
+    func = f_pass;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0000) ||
+         (Ze != 1) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                          // values for a and b
+    A = 4'b0001;
+    B = 4'bxxxx;
+    func = f_pass;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b0001) ||
+         (Ze != 0) ||
+         (N != 0) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+                                          // values for a and b
+    A = 4'b1010;
+    B = 4'bxxxx;
+    func = f_pass;
+
+    #period // Give delay for register updates
+    $display("Segment output: %B", uo_out); // The 7-seg output
+    $display(Y); // The re-encoded 7-seg value
+    $display("ZNCV"); // ALU flag key
+    $display(Ze, N, C, V); // ALU flags
+
+    // display message if output not matched
+    if  ((Y != 4'b1010) ||
+         (Ze != 0) ||
+         (N != 1) ||
+         (C != 1'bx) ||
+         (V != 1'bx)) // If the output is incorrect:
+        begin
+        $display("test failed");
+        $display("correct value is: ", A);
+        
+        $finish;
+        end
+    else 
+        $display("correct");
+    
+////////////////////////////////////////////////////
+        
+    
+    $display("All tests passed!");
     $finish;   // end of simulation
 end
 endmodule
